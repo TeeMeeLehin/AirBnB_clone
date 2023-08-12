@@ -39,7 +39,7 @@ class FileStorage():
         from models.review import Review
         from models.place import Place
         from models.amenity import Amenity
-        
+
         if os.path.isfile(self.__file_path):
             try:
                 with open(self.__file_path, 'r') as json_file:

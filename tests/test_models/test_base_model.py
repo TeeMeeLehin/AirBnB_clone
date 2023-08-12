@@ -28,8 +28,9 @@ class TestBaseModelInit(unittest.TestCase):
         obj = BaseModel(**kwargs)
 
         self.assertEqual(obj.id, 'some_id_value')
-        self.assertEqual(obj.created_at, datetime.datetime.fromisoformat(created_at))
-        self.assertEqual(obj.updated_at, datetime.datetime.fromisoformat(updated_at))
+        x = obj.created_at
+        self.assertEqual(x, datetime.datetime.fromisoformat(created_at))
+        self.assertEqual(x, datetime.datetime.fromisoformat(updated_at))
 
     def test_id_generation(self):
         "function testing the datetime attribute"
