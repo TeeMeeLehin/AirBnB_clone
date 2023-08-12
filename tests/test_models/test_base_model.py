@@ -18,16 +18,18 @@ class TestBaseModelInit(unittest.TestCase):
 
     def test_initialization_with_kwargs(self):
         "function testing initialized values called with kwargs"
-        created_at = datetime.datetime(2023, 8, 8, 12, 0, 0).isoformat()
-        updated_at = datetime.datetime(2023, 8, 8, 12, 30, 0).isoformat()
+        ct = datetime.datetime(2023, 8, 8, 12, 0, 0).isoformat()
+        ut = datetime.datetime(2023, 8, 8, 12, 30, 0).isoformat()
         kwargs = {
             'id': 'some_id_value',
-            'created_at': created_at,
-            'updated_at': updated_at
+            'created_at': ct,
+            'updated_at': ut,
         }
         obj = BaseModel(**kwargs)
 
         self.assertEqual(obj.id, 'some_id_value')
+        self.assertEqual(obj.created_at, datetime.datetime.fromisoformat(ct))
+        self.assertEqual(obj.updated_at, datetime.datetime.fromisoformat(ut))
 
     def test_id_generation(self):
         "function testing the datetime attribute"
