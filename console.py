@@ -79,6 +79,30 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** no instance found **")
 
+        if func == 'update':
+            try:
+                ulist = id[:-1].split(", ")
+            except ValueError:
+                print("** instance id missing **")
+            if (class_name not in class_map):
+                print("** class doesn't exist **")
+            elif len(ulist) < 2:
+                print("** instance id missing **")
+            elif len(ulist) < 3:
+                print("** attribute name missing **")
+            elif len(ulist) < 4:
+                print("** value missing **")
+            else:
+                search_key = f"{class_name}.{clean_quotes(ulist[0])}"
+                if search_key in storage.all().keys():
+                    model = storage.all().get(search_key)
+                    attr_name = clean_quotes(ulist[1])
+                    attr_val = clean_quotes(ulist[2])
+                    setattr(model, attr_name, attr_val)
+                    model.save()
+                else:
+                    print("** no instance found **")
+
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
