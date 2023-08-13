@@ -41,6 +41,14 @@ class HBNBCommand(cmd.Cmd):
                 key_class = key.split(".")[0]
                 if key_class == class_name:
                     print(value)
+        
+        if method == 'count()':
+            count = 0
+            for key, value in storage.all().items():
+                key_class = key.split(".")[0]
+                if key_class == class_name:
+                    count += 1
+            print(count)
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
