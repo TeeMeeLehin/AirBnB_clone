@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
         except ValueError:
             func, id = method, None
 
-        search_key = f"{class_name}.{id[:-1]}"
+        search_key = f"{class_name}.{clean_quotes(id[:-1])}"
 
         if method == 'all()':
             for key, value in storage.all().items():
@@ -87,10 +87,8 @@ class HBNBCommand(cmd.Cmd):
             if (class_name not in class_map):
                 print("** class doesn't exist **")
             elif len(ulist) < 2:
-                print("** instance id missing **")
-            elif len(ulist) < 3:
                 print("** attribute name missing **")
-            elif len(ulist) < 4:
+            elif len(ulist) < 3:
                 print("** value missing **")
             else:
                 search_key = f"{class_name}.{clean_quotes(ulist[0])}"
