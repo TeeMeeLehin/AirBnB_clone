@@ -35,13 +35,19 @@ class HBNBCommand(cmd.Cmd):
     def default(self, arg):
         """implementing custom functionalities"""
         class_name, method = arg.split(".")
+        try:
+            func, id = method.split("(")
+        except ValueError:
+            func, id = method, None
+
+        search_key = f"{class_name}.{id[:-1]}"
 
         if method == 'all()':
             for key, value in storage.all().items():
                 key_class = key.split(".")[0]
                 if key_class == class_name:
                     print(value)
-        
+
         if method == 'count()':
             count = 0
             for key, value in storage.all().items():
@@ -49,6 +55,29 @@ class HBNBCommand(cmd.Cmd):
                 if key_class == class_name:
                     count += 1
             print(count)
+
+        if func == 'show':
+            if (class_name not in class_map):
+                print("** class doesn't exist **")
+            elif len(id[:-1]) == 0:
+                print("** instance id missing **")
+            else:
+                if search_key in storage.all().keys():
+                    print(storage.all().get(search_key))
+                else:
+                    print("** no instance found **")
+
+        if func == 'destroy':
+            if (class_name not in class_map):
+                print("** class doesn't exist **")
+            elif len(id[:-1]) == 0:
+                print("** instance id missing **")
+            else:
+                if search_key in storage.all().keys():
+                    storage.all().pop(search_key)
+                    storage.save()
+                else:
+                    print("** no instance found **")
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
