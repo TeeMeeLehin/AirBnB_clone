@@ -32,6 +32,16 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = '(hbnb) '
 
+    def default(self, arg):
+        """implementing custom functionalities"""
+        class_name, method = arg.split(".")
+
+        if method == 'all()':
+            for key, value in storage.all().items():
+                key_class = key.split(".")[0]
+                if key_class == class_name:
+                    print(value)
+
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
